@@ -37,7 +37,7 @@ router.post("/register", async (req, res) => {
       }
     );
 
-    res.json({ token, userId: newUser._id });
+    res.json({ token, userId: newUser._id, userRole: user.role });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Помилка сервера" });
@@ -65,7 +65,7 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.json({ token, userId: user._id });
+    res.json({ token, userId: user._id, userRole: user.role, name: user.name });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Помилка сервера" });

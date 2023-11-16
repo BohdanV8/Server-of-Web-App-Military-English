@@ -8,8 +8,7 @@ const userSchema = new mongoose.Schema(
     surname: { type: String, required: false },
     middlename: { type: String, required: false },
     role: { type: String, enum: userRoles, default: "user" },
-  },
-  { collection: "users", db: "MilitaryEnglish" }
+  }
 );
 
 const User = mongoose.model("User", userSchema);
