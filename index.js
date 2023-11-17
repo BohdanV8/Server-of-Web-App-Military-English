@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 const authRoutes = require("./routes/auth");
+const categoriesRoutes = require("./routes/categories")
+const coursesRoutes = require("./routes/courses")
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -24,7 +26,11 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Помилка підключення до MongoDB:"));
 db.once("open", async () => {
   console.log("Підключено до MongoDB!");
-  // await db.createCollection("users");
+  //  const new_category = new Category({
+  //    title: "Для танкістів"
+  //  })
+  //  new_category.save()
+   // await db.createCollection("users");
   // const users = db.collection("users");
   // await users.insertOne({ name: "John", age: 20 });
   // const user = users.findOne({ name: "John" });
@@ -32,6 +38,8 @@ db.once("open", async () => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/categories", categoriesRoutes);
+app.use("/api/courses", coursesRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

@@ -5,7 +5,8 @@ const courseSchema = new mongoose.Schema(
     title: { type: String, required: true },
     description: { type: String, required: false },
     url_of_photo: { type: String, required: false },
-    id_of_category: { type: String, required: true }
+    id_of_category: { type: String, required: true },
+    date: {type: Date, default: new Date()}
   }
 );
 
