@@ -3,8 +3,10 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 const authRoutes = require("./routes/auth");
-const categoriesRoutes = require("./routes/categories")
-const coursesRoutes = require("./routes/courses")
+const categoriesRoutes = require("./routes/categories");
+const coursesRoutes = require("./routes/courses");
+const topicsRoutes = require("./routes/topics");
+const materialsRoutes = require("./routes/materials");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -30,7 +32,7 @@ db.once("open", async () => {
   //    title: "Для танкістів"
   //  })
   //  new_category.save()
-   // await db.createCollection("users");
+  // await db.createCollection("users");
   // const users = db.collection("users");
   // await users.insertOne({ name: "John", age: 20 });
   // const user = users.findOne({ name: "John" });
@@ -40,6 +42,8 @@ db.once("open", async () => {
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoriesRoutes);
 app.use("/api/courses", coursesRoutes);
+app.use("/api/topics", topicsRoutes);
+app.use("/api/materials", materialsRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

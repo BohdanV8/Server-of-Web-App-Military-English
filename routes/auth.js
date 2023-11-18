@@ -33,11 +33,11 @@ router.post("/register", async (req, res) => {
       { userId: newUser._id, userRole: newUser.role },
       "viva",
       {
-        expiresIn: "1h",
+        expiresIn: "5h",
       }
     );
 
-    res.json({ token, userId: newUser._id, userRole: user.role });
+    res.json({ token, userId: newUser._id, userRole: newUser.role });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Помилка сервера" });
@@ -62,7 +62,7 @@ router.post("/login", async (req, res) => {
 
     // Генерація JWT токена
     const token = jwt.sign({ userId: user._id, userRole: user.role }, "viva", {
-      expiresIn: "1h",
+      expiresIn: "5h",
     });
 
     res.json({ token, userId: user._id, userRole: user.role, name: user.name });

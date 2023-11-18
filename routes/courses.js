@@ -21,13 +21,14 @@ router.post("/create", upload.single("file"), async (req, res) => {
     const { title, description, category } = req.body;
     const file = req.file; // Об'єкт файлу, який надсилається через форму
 
+    const url_of_photo = file ? file.filename : "";
     // Створення нового курсу в базі даних
     const newCourse = new Course({
       id_of_courseModerator: userId,
       title,
       description,
       id_of_category: category,
-      url_of_photo: file.filename, // Ім'я файлу, яке буде збережено в базі даних
+      url_of_photo,
     });
 
     const savedCourse = await newCourse.save();
