@@ -36,7 +36,6 @@ router.post("/register", async (req, res) => {
         expiresIn: "5h",
       }
     );
-
     res.json({ token, userId: newUser._id, userRole: newUser.role });
   } catch (error) {
     console.error(error);
@@ -64,7 +63,6 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ userId: user._id, userRole: user.role }, "viva", {
       expiresIn: "5h",
     });
-
     res.json({ token, userId: user._id, userRole: user.role, name: user.name });
   } catch (error) {
     console.error(error);
