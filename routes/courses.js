@@ -51,7 +51,47 @@ router.get("/allCoursesOfModerator", async (req, res) => {
     });
     res.json(courses);
   } catch (error) {
-    console.error("Error fetching categories:", error);
+    console.error("Error fetching courses:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/wantedModeratorCourses", async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, "viva");
+    const userId = decodedToken.userId;
+    const { category, searchString } = req.query;
+    if (category && !searchString) {
+      var courses = await Course.find({
+        id_of_courseModerator: userId,
+        id_of_category: category,
+      }).sort({
+        date: -1,
+      });
+    } else if (searchString && !category) {
+      var courses = await Course.find({
+        id_of_courseModerator: userId,
+        title: searchString,
+      }).sort({
+        date: -1,
+      });
+    } else if (category && searchString) {
+      var courses = await Course.find({
+        id_of_courseModerator: userId,
+        title: searchString,
+        id_of_category: category,
+      }).sort({
+        date: -1,
+      });
+    } else {
+      var courses = await Course.find({ id_of_courseModerator: userId }).sort({
+        date: -1,
+      });
+    }
+    res.json(courses);
+  } catch (error) {
+    console.error("Error fetching courses:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

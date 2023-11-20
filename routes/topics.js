@@ -41,8 +41,25 @@ router.get("/allTopicsOfCourse/:id", async (req, res) => {
     const topics = await Topic.find({ id_of_course: req.params.id }).sort({
       date: -1,
     });
-    // console.log(req.params.id);
-    // console.log(topics);
+    res.json(topics);
+  } catch (error) {
+    console.error("Error fetching topics:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/sortedTopicsOfCourse/:id", async (req, res) => {
+  try {
+    const { selectedSort } = req.query;
+    if (selectedSort == -1) {
+      var topics = await Topic.find({ id_of_course: req.params.id }).sort({
+        date: -1,
+      });
+    } else {
+      var topics = await Topic.find({ id_of_course: req.params.id }).sort({
+        date: 1,
+      });
+    }
     res.json(topics);
   } catch (error) {
     console.error("Error fetching topics:", error);
